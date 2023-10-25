@@ -1,0 +1,454 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={RWorksheet\_Gener\#3a.Rmd},
+  pdfauthor={Kent Gener},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{RWorksheet\_Gener\#3a.Rmd}
+\author{Kent Gener}
+\date{2023-10-22}
+
+\begin{document}
+\maketitle
+
+\hypertarget{r-markdown}{%
+\subsection{R Markdown}\label{r-markdown}}
+
+This is an R Markdown document. Markdown is a simple formatting syntax
+for authoring HTML, PDF, and MS Word documents. For more details on
+using R Markdown see \url{http://rmarkdown.rstudio.com}.
+
+When you click the \textbf{Knit} button a document will be generated
+that includes both content as well as the output of any embedded R code
+chunks within the document. You can embed an R code chunk like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(cars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00
+\end{verbatim}
+
+\hypertarget{including-plots}{%
+\subsection{Including Plots}\label{including-plots}}
+
+You can also embed plots, for example:
+
+\includegraphics{RWorksheet_Gener-3a_files/figure-latex/pressure-1.pdf}
+
+Note that the \texttt{echo\ =\ FALSE} parameter was added to the code
+chunk to prevent printing of the R code that generated the plot.
+
+\#Task 1 \#Using Vectors \#1. There is a built-in vector LETTERS
+contains the \#uppercase letters of the alphabet \#and letters which
+contains the lowercase letters of \#the alphabet.
+
+\#LETTERS \#\# {[}1{]} ``A'' ``B'' ``C'' ``D'' ``E'' ``F'' ``G'' ``H''
+``I'' ``J'' ``K'' ``L'' ``M'' ``N'' ``O'' ``P'' ``Q'' ``R'' ``S'' \#\#
+{[}20{]} ``T'' ``U'' ``V'' ``W'' ``X'' ``Y'' ``Z''
+
+letters \#\# {[}1{]} ``a'' ``b'' ``c'' ``d'' ``e'' ``f'' ``g'' ``h''
+``i'' ``j'' ``k'' ``l'' ``m'' ``n'' ``o'' ``p'' ``q'' ``r'' ``s'' \#\#
+{[}20{]} ``t'' ``u'' ``v'' ``w'' ``x'' ``y'' ``z''
+
+\#Based on the above vector LETTERS: \#a. You need to produce a vector
+that contains the first 11 letters. \textgreater first\_11\_letters
+\textless- LETTERS{[}1:11{]} \textgreater first\_11\_letters {[}1{]}
+``A'' ``B'' ``C'' ``D'' ``E'' ``F'' ``G'' ``H'' ``I'' ``J'' ``K''
+
+\#b. Produce a vector containing the odd-numbered letters.
+\textgreater odd\_letters \textless- LETTERS{[}seq(1, length(LETTERS),
+by = 2){]} \textgreater odd\_letters {[}1{]} ``A'' ``C'' ``E'' ``G''
+``I'' ``K'' ``M'' ``O'' ``Q'' ``S'' ``U'' ``W'' ``Y''
+
+\#c.~Produce a vector that contains the vowels \textgreater plot(1:10,
+my\_vector, main = ``Scatter Plot'', xlab = ``Index'', ylab = ``Value'')
+
+\#d.~Produce a vector that contains the last 5 lowercase letters.
+\textgreater last\_5\_lowercase\_letters \textless- letters{[}22:26{]}
+\textgreater{} last\_5\_lowercase\_letters {[}1{]} ``v'' ``w'' ``x''
+``y'' ``z''
+
+\#e. Produce a vector that contains letters between 15 to 24 in
+lowercase. \textgreater{} letters\_15\_to\_24 \textless-
+letters{[}15:24{]} \textgreater{} letters\_15\_to\_24 {[}1{]} ``o''
+``p'' ``q'' ``r'' ``s'' ``t'' ``u'' ``v'' ``w'' ``x''
+
+\#For task 2: \#a. Create a character vector for the cities: Tuguegarao
+City, Manila, Iloilo City, Tacloban, Samal Island, and Davao City, named
+``city.'' \textgreater{} city \textless- c(``Tuguegarao City'',
+``Manila'', ``Iloilo City'', ``Tacloban'', ``Samal Island'', ``Davao
+City'') \textgreater{} city {[}1{]} ``Tuguegarao City'' ``Manila''
+``Iloilo City'' {[}4{]} ``Tacloban'' ``Samal Island'' ``Davao City''
+
+\#b. Create a numeric vector for the average temperatures, named
+``temp.'' \textgreater{} temp \textless- c(42, 39, 34, 34, 30, 27)
+\textgreater{} temp {[}1{]} 42 39 34 34 30 27
+
+\#c.~Create a data frame to combine the ``city'' and ``temp.''
+\textgreater{} weather\_data \textless- data.frame(City = city,
+Temperature = temp) \textgreater{} weather\_data City Temperature 1
+Tuguegarao City 42 2 Manila 39 3 Iloilo City 34 4 Tacloban 34 5 Samal
+Island 30 6 Davao City 27
+
+\#d.~Rename the columns using the names() function. \textgreater{}
+names(weather\_data) \textless- c(``City'', ``Temperature'')
+\textgreater{} weather\_data City Temperature 1 Tuguegarao City 42 2
+Manila 39 3 Iloilo City 34 4 Tacloban 34 5 Samal Island 30 6 Davao City
+27
+
+\#e. Print the structure by using str() function. Describe the output.
+\textgreater{} str(weather\_data) `data.frame': 6 obs. of 2 variables:
+\$ City : chr ``Tuguegarao City'' ``Manila'' ``Iloilo City''
+``Tacloban'' \ldots{} \$ Temperature: num 42 39 34 34 30 27
+
+\#f.~From the answer in d, what is the content of row 3 and row 4 What
+is its R code and its output? \textgreater{} row\_3\_and\_4 \textless-
+weather\_data{[}3:4, {]} \textgreater{} row\_3\_and\_4 City Temperature
+3 Iloilo City 34 4 Tacloban 34
+
+\#g. From the answer in d, display the city with highest temperature and
+the city with the lowest temperature. What is its R code and its output?
+\textgreater{} city\_highest\_temp \textless-
+weather\_data{[}which.max(weather\_data\(Temperature), "City"] > city_lowest_temp <- weather_data[which.min(weather_data\)Temperature),
+``City''{]} \textgreater{} cat(``City with the highest temperature:'',
+city\_highest\_temp, ``\n'') City with the highest temperature:
+Tuguegarao City \textgreater{} cat(``City with the lowest
+temperature:'', city\_lowest\_temp, ``\n'') City with the lowest
+temperature: Davao City
+
+\#Using Matrices \#• Matrix can be created by specifying the rows and
+columns. \# row = 2 \#matrix(c(5,6,7,4,3,2,1,2,3,7,8,9),nrow = 2) \#\#
+{[},1{]} {[},2{]} {[},3{]} {[},4{]} {[},5{]} {[},6{]} \#\# {[}1,{]} 5 7
+3 1 3 8 \#\# {[}2,{]} 6 4 2 2 7 9 \# row = 3 and column = 2 \#atrix(data
+= c(3,4,5,6,7,8),3,2) \#\# {[},1{]} {[},2{]} \#\# {[}1,{]} 3 6 \#\#
+{[}2,{]} 4 7 \#\# {[}3,{]} 5 8
+
+4
+
+\hypertarget{creating-a-diagonal-matrix-where-x-value-will-always-be-1}{%
+\section{creating a diagonal matrix where x value will always be
+1}\label{creating-a-diagonal-matrix-where-x-value-will-always-be-1}}
+
+\#diag(1,nrow = 6,ncol = 5) \#\# {[},1{]} {[},2{]} {[},3{]} {[},4{]}
+{[},5{]} \#\# {[}1,{]} 1 0 0 0 0 \#\# {[}2,{]} 0 1 0 0 0 \#\# {[}3,{]} 0
+0 1 0 0 \#\# {[}4,{]} 0 0 0 1 0 \#\# {[}5,{]} 0 0 0 0 1 \#\# {[}6,{]} 0
+0 0 0 0 \#diag(6) \#\# {[},1{]} {[},2{]} {[},3{]} {[},4{]} {[},5{]}
+{[},6{]} \#\# {[}1,{]} 1 0 0 0 0 0 \#\# {[}2,{]} 0 1 0 0 0 0 \#\#
+{[}3,{]} 0 0 1 0 0 0 \#\# {[}4,{]} 0 0 0 1 0 0 \#\# {[}5,{]} 0 0 0 0 1 0
+\#\# {[}6,{]} 0 0 0 0 0 1 \#2. Create a matrix of one to eight and
+eleven to fourteen with four columns and three rows.
+
+\#a. What will be the R code for the \#2 question and its result?
+\textgreater{} matrix\_2a \textless- matrix(c(1:8, 11:14), nrow = 3,
+ncol = 4) \textgreater{} matrix\_2a {[},1{]} {[},2{]} {[},3{]} {[},4{]}
+{[}1,{]} 1 4 7 12 {[}2,{]} 2 5 8 13 {[}3,{]} 3 6 11 14
+
+\#b. Multiply the matrix by two. What is its R code and its result?
+\textgreater{} matrix\_2b \textless- matrix\_2a * 2 \textgreater{}
+matrix\_2b {[},1{]} {[},2{]} {[},3{]} {[},4{]} {[}1,{]} 2 8 14 24
+{[}2,{]} 4 10 16 26 {[}3,{]} 6 12 22 28
+
+\#c.~Content of row 2? What is its R code? \textgreater{}
+row\_2\_content \textless- matrix\_2a{[}2, {]} \textgreater{}
+row\_2\_content {[}1{]} 2 5 8 13
+
+\#d.~What will be the R code if you want to display the column 3 and
+column 4 in row 1 and row 2? What is its output? \textgreater{}
+cols\_3\_4\_rows\_1\_2 \textless- matrix\_2a{[}1:2, 3:4{]}
+\textgreater{} cols\_3\_4\_rows\_1\_2 {[},1{]} {[},2{]} {[}1,{]} 7 12
+{[}2,{]} 8 13
+
+\#e. What is the R code is you want to display only the columns in 2 and
+3, row 3? What is its output? \textgreater{} cols\_2\_3\_row\_3
+\textless- matrix\_2a{[}3, 2:3{]} \textgreater{} cols\_2\_3\_row\_3
+{[}1{]} 6 11
+
+\#f.~What is the R code is you want to display only the columns 4? What
+is its output? \textgreater{} col\_4 \textless- matrix\_2a{[}, 4{]}
+\textgreater{} col\_4 {[}1{]} 12 13 14
+
+\#g. Name the rows as isa, dalawa, tatlo and columns as uno, dos, tres,
+quatro for the matrix that was created in b.`. What is its R code and
+corresponding output? \textgreater{} rownames(matrix\_2a) \textless-
+c(``isa'', ``dalawa'', ``tatlo'') \textgreater{} colnames(matrix\_2a)
+\textless- c(``uno'', ``dos'', ``tres'', ``quatro'') \textgreater{}
+matrix\_2a uno dos tres quatro isa 1 4 7 12 dalawa 2 5 8 13 tatlo 3 6 11
+14
+
+\#h. From the original matrix you have created in a, reshape the matrix
+by assigning a new dimension with dim(). New dimensions should have 2
+columns and 6 rows. What will be the R code and its output?
+\textgreater{} new\_dim \textless- matrix\_2a \textgreater{}
+dim(new\_dim) \textless- c(6, 2) \textgreater{} new\_dim {[},1{]}
+{[},2{]} {[}1,{]} 1 7 {[}2,{]} 2 8 {[}3,{]} 3 11 {[}4,{]} 4 12 {[}5,{]}
+5 13 {[}6,{]} 6 14
+
+\#Using Arrays \#• Array can have more than two dimensions by using the
+array() function and dim() to specify the dimensions
+
+\#6
+
+\hypertarget{creates-a-two-dimensional-array-containing-numbers-from-1-to-24-that-have-3-rows-and-4-columns}{%
+\section{creates a two-dimensional array containing numbers from 1 to 24
+that have 3 rows and 4
+columns}\label{creates-a-two-dimensional-array-containing-numbers-from-1-to-24-that-have-3-rows-and-4-columns}}
+
+array\_dta \textless- array(c(1:24), c(3,4,2)) array\_dta
+
+\hypertarget{section}{%
+\subsection{, , 1}\label{section}}
+
+\hypertarget{section-1}{%
+\subsection{}\label{section-1}}
+
+\hypertarget{section-2}{%
+\subsection{{[},1{]} {[},2{]} {[},3{]} {[},4{]}}\label{section-2}}
+
+\hypertarget{section-3}{%
+\subsection{{[}1,{]} 1 4 7 10}\label{section-3}}
+
+\hypertarget{section-4}{%
+\subsection{{[}2,{]} 2 5 8 11}\label{section-4}}
+
+\hypertarget{section-5}{%
+\subsection{{[}3,{]} 3 6 9 12}\label{section-5}}
+
+\hypertarget{section-6}{%
+\subsection{}\label{section-6}}
+
+\hypertarget{section-7}{%
+\subsection{, , 2}\label{section-7}}
+
+\hypertarget{section-8}{%
+\subsection{}\label{section-8}}
+
+\hypertarget{section-9}{%
+\subsection{{[},1{]} {[},2{]} {[},3{]} {[},4{]}}\label{section-9}}
+
+\hypertarget{section-10}{%
+\subsection{{[}1,{]} 13 16 19 22}\label{section-10}}
+
+\hypertarget{section-11}{%
+\subsection{{[}2,{]} 14 17 20 23}\label{section-11}}
+
+\hypertarget{section-12}{%
+\subsection{{[}3,{]} 15 18 21 24}\label{section-12}}
+
+\hypertarget{checking-for-the-dimensions}{%
+\section{checking for the
+dimensions}\label{checking-for-the-dimensions}}
+
+\hypertarget{row-column-dimension}{%
+\section{row, column, dimension}\label{row-column-dimension}}
+
+dim(array\_dta)
+
+\hypertarget{section-13}{%
+\subsection{{[}1{]} 3 4 2}\label{section-13}}
+
+\#checking for the number of elements length(array\_dta)
+
+\hypertarget{section-14}{%
+\subsection{{[}1{]} 24}\label{section-14}}
+
+\#• Another way to create arrays \#vectorA \textless- c(1:24) \#
+creating an array \#an\_Array \textless- array(vectorA, dim = c(3,4,2))
+\#an\_Array
+
+\#7
+
+\hypertarget{section-15}{%
+\subsection{, , 1}\label{section-15}}
+
+\hypertarget{section-16}{%
+\subsection{}\label{section-16}}
+
+\hypertarget{section-17}{%
+\subsection{{[},1{]} {[},2{]} {[},3{]} {[},4{]}}\label{section-17}}
+
+\hypertarget{section-18}{%
+\subsection{{[}1,{]} 1 4 7 10}\label{section-18}}
+
+\hypertarget{section-19}{%
+\subsection{{[}2,{]} 2 5 8 11}\label{section-19}}
+
+\hypertarget{section-20}{%
+\subsection{{[}3,{]} 3 6 9 12}\label{section-20}}
+
+\hypertarget{section-21}{%
+\subsection{}\label{section-21}}
+
+\hypertarget{section-22}{%
+\subsection{, , 2}\label{section-22}}
+
+\hypertarget{section-23}{%
+\subsection{}\label{section-23}}
+
+\hypertarget{section-24}{%
+\subsection{{[},1{]} {[},2{]} {[},3{]} {[},4{]}}\label{section-24}}
+
+\hypertarget{section-25}{%
+\subsection{{[}1,{]} 13 16 19 22}\label{section-25}}
+
+\hypertarget{section-26}{%
+\subsection{{[}2,{]} 14 17 20 23}\label{section-26}}
+
+\hypertarget{section-27}{%
+\subsection{{[}3,{]} 15 18 21 24}\label{section-27}}
+
+\#a. Create an array for the above numeric values. Each values will be
+repeated twice What will be the R code if you are to create a
+three-dimensional array with 4 columns and 2 rows. What will be its
+output? \textgreater{} array\_values \textless- c(1, 2, 3, 6, 7, 8, 9,
+0, 3, 4, 5, 1) \textgreater{} repeated\_values \textless-
+rep(array\_values, each = 2) \textgreater{} my\_array \textless-
+array(repeated\_values, dim = c(2, 4, 3)) \textgreater{} my\_array , , 1
+
+\begin{verbatim}
+ [,1] [,2] [,3] [,4]
+\end{verbatim}
+
+{[}1,{]} 1 2 3 6 {[}2,{]} 1 2 3 6
+
+, , 2
+
+\begin{verbatim}
+ [,1] [,2] [,3] [,4]
+\end{verbatim}
+
+{[}1,{]} 7 8 9 0 {[}2,{]} 7 8 9 0
+
+, , 3
+
+\begin{verbatim}
+ [,1] [,2] [,3] [,4]
+\end{verbatim}
+
+{[}1,{]} 3 4 5 1 {[}2,{]} 3 4 5 1
+
+\#b. How many dimensions do your array have? \textgreater{}
+num\_dimensions \textless- length(dim(my\_array)) \textgreater{}
+num\_dimensions {[}1{]} 3
+
+\#c.~Name the rows as lowercase letters and columns as uppercase letters
+starting from the A. The array names should be ``1st-Dimensional
+Array'', ``2nd-Dimensional Array'', and ``3rd-Dimensional Array''. What
+will be the R codes and its output? \textgreater{} rownames(my\_array)
+\textless- letters{[}1:2{]} \textgreater{} colnames(my\_array)
+\textless- LETTERS{[}1:4{]} \textgreater{} rownames(my\_array) {[}1{]}
+``a'' ``b'' \textgreater{} colnames(my\_array) {[}1{]} ``A'' ``B'' ``C''
+``D''
+
+\end{document}
