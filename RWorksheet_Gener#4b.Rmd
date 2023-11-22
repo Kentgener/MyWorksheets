@@ -1,0 +1,212 @@
+---
+title: "RWork-sheet_gener#4b.Rmd"
+author: "Kent Hervey D. Gener BSIT2-B"
+date: "2023-11-21"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+Using Loop Function
+for() loop
+1. Using the for loop, create an R script that will display a 5x5 matrix as shown in
+Figure 1. It must contain vectorA = [1,2,3,4,5] and a 5 x 5 zero matrix.
+Hint Use abs() function to get the absolute value
+```{r}
+vectorA <- c(1, 2, 3, 4, 5)
+
+matrixA <- matrix(0, nrow = 5, ncol = 5)
+
+for (i in 1:5) {
+  for (j in 1:5) {
+    matrixA[i, j] <- abs(vectorA[i] - vectorA[j])
+  }
+}
+
+print(matrixA)
+
+```
+2. Print the string "*" using for() function. The output should be the same as shown
+in Figure
+```{r}
+num_rows <- 5
+
+for (i in 1:num_rows) {
+  for (j in 1:i) {
+    cat("* ", sep = "")
+  }
+  cat("\n")
+}
+
+```
+
+3. Get an input from the user to print the Fibonacci sequence starting from the 1st input
+up to 500. Use repeat and break statements. Write the R Scripts and its output.
+```{r}
+fibonacci <- function(n) {
+  if (n <= 1) {
+    return(n)
+  } else {
+    return(fibonacci(n-1) + fibonacci(n-2))
+  }
+}
+
+user_input <- as.numeric(readline(prompt = "Enter the number of terms for Fibonacci sequence: "))
+
+current_term <- 1
+fibonacci_value <- 0
+
+repeat {
+  fibonacci_value <- fibonacci(current_term)
+  
+  if (fibonacci_value > 500) {
+    break 
+  }
+  
+  cat(fibonacci_value, " ")
+
+  current_term <- current_term + 1
+}
+
+```
+Using Basic Graphics (plot(),barplot(),pie(),hist())
+4. Import the dataset as shown in Figure 1 you have created previously.
+
+```{r}
+figure1matrix <- read.csv("Figure1Matrix.csv")
+```
+a. What is the R script for importing an excel or a csv file? Display the first 6 rows of
+the dataset? Show your codes and its result
+```{r}
+Shoe_Size <- read.csv("ShoeSize.csv")
+
+head(Shoe_Size, 6)
+```
+
+b. Create a subset for gender(female and male). How many observations are there in
+Male? How about in Female? Write the R scripts and its output.
+```{R}
+female_subset <- subset(Shoe_Size, Gender == "F")
+
+male_subset <- subset(Shoe_Size, Gender == "M")
+
+nrow(female_subset)
+
+nrow(male_subset)
+```
+
+c. Create a graph for the number of males and females for Household Data. Use plot(),
+chart type = barplot. Make sure to place title, legends, and colors. Write the R scripts and
+its result.
+```{r}
+freq_table <- table(Shoe_Size$Gender)
+
+colors <- c("lightblue", "lightgreen")
+
+barplot(freq_table, 
+        main = "Number of Shoe Sizes in Household Data",
+        xlab = "Shoe Size",
+        ylab = "Frequency",
+        col = colors,
+        border = "black",
+        legend = rownames(freq_table),
+        horiz = TRUE)
+```
+
+5. The monthly income of Dela Cruz family was spent on the following:
+Food Electricity Savings Miscellaneous
+60 10 5 25
+a. Create a piechart that will include labels in percentage.Add some colors and title of
+the chart. Write the R scripts and show its output.
+```{r}
+
+dela_cruz <- data.frame(category = c("Food", "Electricity", "Savings", "Miscellaneous"),
+                 value = c(60, 10, 5, 25))
+
+pie(dela_cruz$value, labels = dela_cruz$category, col = rainbow(nrow(dela_cruz)), main = "Dela Cruz Family Expenses")
+legend("topright", inset = c(-0.2, 0), legend = dela_cruz$category, fill = rainbow(nrow(dela_cruz)), title = "Expenses")
+```
+
+6. Use the iris dataset.
+```{r}
+data(iris)
+```
+a. Check for the structure of the dataset using the str() function. Describe what you
+have seen in the output.
+```{r}
+ str(iris)
+```
+
+b. Create an R object that will contain the mean of the sepal.length,
+sepal.width,petal.length,and petal.width. What is the R script and its result?
+```{r}
+means <- aggregate(iris[, 1:4], by=list(Species=iris$Species), FUN=mean)
+
+means
+```
+
+c. Create a pie chart for the Species distribution. Add title, legends, and colors. Write
+the R script and its result.
+```{r}
+pie_chart <- pie(table(iris$Species), col=rainbow(3), main="Species Distribution in Iris Dataset")
+
+legend("topright", inset=c(-0.15, 0), legend=levels(iris$Species), fill=rainbow(3), title="Species")
+```
+
+d. Subset the species into setosa, versicolor, and virginica. Write the R scripts
+and show the last six (6) rows of each species.
+```{r}
+setosa <- subset(iris, Species == "setosa")
+versicolor <- subset(iris, Species == "versicolor")
+virginica <- subset(iris, Species == "virginica")
+
+species <- c(setosa,versicolor,virginica)
+```
+
+e. Create a scatterplot of the sepal.length and sepal.width using the different
+species(setosa,versicolor,virginica). Add a title = “Iris Dataset”, subtitle = “Sepal
+width and length, labels for the x and y axis, the pch symbol and colors should be based on
+the species.
+```{r}
+library(ggplot2)
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+ geom_point(size = 3, shape = 21, stroke = 2) +
+ scale_color_manual(values = c("setosa" = "blue", "versicolor" = "red", "virginica" = "green")) +
+ labs(title = "Iris Dataset", subtitle = "Sepal width and length",
+       x = "Sepal Length", y = "Sepal Width")
+```
+
+Hint: Need to convert to factors the species to store categorical variables.
+```{r}
+species_factors <- factor(iris$Species)
+```
+
+f. Interpret the result.
+```{r}
+#You can now use the species_factors variable in your model instead of the original species variable. This is because the factor variable provides a more compact representation of the categorical data, which can be useful for statistical analyses
+```
+
