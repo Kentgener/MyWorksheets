@@ -1,0 +1,288 @@
+---
+title: "Kent Gener"
+author: "Kent Hervey D. Gener BSIT2-B"
+date: "2023-11-22"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+• Download and open the mpg file. Upload it to your OWN environment
+a. Show your solutions on how to import a csv file into the environment.
+```{r}
+mpg_data <- read.csv('mpg.csv')
+```
+
+b. Which variables from mpg dataset are categorical?
+```{r}
+str(mpg_data)
+
+categorical_vars <- c("manufacturer", "model", "year", "cyl", "trans", "drv", "fl", "class")
+cat("Categorical variables:", categorical_vars, "\n")
+```
+
+c. Which are continuous variables?
+```{r}
+str(mpg_data)
+continuous_vars <- c("displ", "cty", "hwy")
+cat("Continuous variables:", continuous_vars, "\n")
+```
+
+2. Which manufacturer has the most models in this data set? Which model has the most variations?
+Show your answer.
+```{r}
+library(dplyr)
+
+models_per_manufacturer <- mpg_data %>%
+  group_by(manufacturer) %>%
+  summarise(unique_models = n_distinct(model))
+
+models_per_manufacturer
+
+```
+
+a. Group the manufacturers and find the unique models. Show your codes and result.
+```{r}
+library(dplyr)
+
+models_per_manufacturer <- mpg_data %>%
+  group_by(manufacturer) %>%
+  summarise(unique_models = n_distinct(model))
+
+models_per_manufacturer
+
+```
+
+b. Graph the result by using plot() and ggplot(). Write the codes and its result.
+```{r}
+library(ggplot2)
+
+ggplot(models_per_manufacturer, aes(x = manufacturer, y = unique_models)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Number of Unique Models per Manufacturer", x = "Manufacturer", y = "Number of Unique Models") +
+  theme_minimal()
+
+```
+
+2. Same dataset will be used. You are going to show the relationship of the modeland the manufacturer.
+
+a. What does ggplot(mpg, aes(model, manufacturer)) + geom_point() show?
+```{r}
+ggplot(mpg_data, aes(model, manufacturer)) + geom_point()
+```
+
+b. For you, is it useful? If not, how could you modify the data to make it more informative?
+```{r}
+library(ggplot2)
+
+model_manufacturer_count <- mpg %>%
+  group_by(model, manufacturer) %>%
+  summarise(count = n())
+
+ggplot(model_manufacturer_count, aes(x = model, fill = manufacturer)) +
+  geom_bar() +
+  labs(title = "Number of Models per Manufacturer",
+       x = "Model", y = "Count",
+       fill = "Manufacturer") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+3. Plot the model and the year using ggplot(). Use only the top 20 observations. Write the codes and
+its results.
+```{r}
+library(ggplot2)
+
+top_20 <- head(mpg, 20)
+
+ggplot(top_20, aes(x = model, y = year)) +
+  geom_point() +
+  labs(title = "Relationship between Model and Year (Top 20 Observations)",
+       x = "Model", y = "Year") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+4. Using the pipe (%>%), group the model and get the number of cars per model. Show codes and its result
+```{r}
+library(dplyr)
+
+cars_per_model <- mpg %>%
+  group_by(model) %>%
+  summarise(num_cars = n())
+
+cars_per_model
+
+```
+
+a. Plot using geom_bar() using the top 20 observations only. The graphs shoudl have a title, labels and
+colors. Show code and results.
+```{r}
+library(ggplot2)
+
+top_20 <- head(mpg, 20)
+
+ggplot(top_20, aes(x = model)) +
+  geom_bar(fill = "skyblue", color = "black") +
+  labs(title = "Number of Cars per Model (Top 20 Observations)",
+       x = "Model", y = "Number of Cars") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+b. Plot using the geom_bar() + coord_flip() just like what is shown below. Show codes and its result.
+```{r}
+library(ggplot2)
+
+ggplot(cars_per_model, aes(x = model, y = num_cars)) +
+  geom_bar(fill = "skyblue", color = "black", stat = "identity") +
+  labs(title = "Number of Cars per Model",
+       x = "Model", y = "Number of Cars") +
+  coord_flip() +
+  theme_minimal()
+
+```
+
+5. Plot the relationship between cyl - number of cylinders and displ - engine displacement using
+geom_point with aesthetic color = engine displacement. Title should be “Relationship between
+No. of Cylinders and Engine Displacement”.
+```{r}
+library(ggplot2)
+
+ggplot(mpg, aes(x = cyl, y = displ, color = displ)) +
+  geom_point() +
+  labs(title = "Relationship between No. of Cylinders and Engine Displacement",
+       x = "Number of Cylinders", y = "Engine Displacement") +
+  scale_color_continuous(name = "Engine Displacement") +
+  theme_minimal()
+
+```
+
+a. How would you describe its relationship? Show the codes and its result.
+```{r}
+#The relationship between cylinder count and engine displacement is often #positive, with larger engines having more cylinders. This trend is #common in automotive engineering. The color gradient helps visualize #engine displacement varying across points in the plot. Clusters of #points may indicate more common combinations of cylinder count and #displacement. The color scale provides additional information about #engine displacement for each point. Identifying specific patterns or #clusters in the plot can be described based on the distribution of #points in different regions.
+```
+
+6. Plot the relationship between displ (engine displacement) and hwy(highway miles per gallon). Mapped
+it with a continuous variable you have identified in #1-c. What is its result? Why it produced such
+output?
+
+6. Import the traffic.csv onto your R environment.
+```{r}
+traffic <- read.csv("traffic.csv")
+
+head(traffic)
+
+```
+
+a. How many numbers of observation does it have? What are the variables of the traffic dataset the Show
+your answer.
+```{r}
+num_observations <- nrow(traffic)
+
+variables <- names(traffic)
+
+cat("Number of Observations:", num_observations, "\n")
+cat("Variables:", paste(variables, collapse = ", "), "\n")
+
+```
+
+b. subset the traffic dataset into junctions. What is the R codes and its output?
+```{r}
+junctions <- unique(traffic$junction)
+
+junctions
+
+```
+
+c. Plot each junction in a using geom_line(). Show your solution and output.
+```{r}
+library(ggplot2)
+
+# Plot each junction using geom_line()
+ggplot(traffic, aes(x = 'timestamp', y = 'traffic_volume', color = 'junctions')) +
+  geom_line() +
+  labs(title = "Traffic Volume Over Time for Each Junction",
+       x = "Timestamp", y = "Traffic Volume",
+       color = "Junction") +
+  theme_minimal()
+
+```
+
+7. From alexa_file.xlsx, import it to your environment
+```{r}
+if (!requireNamespace("readxl", quietly = TRUE)) {
+  install.packages("readxl")
+}
+library(readxl)
+
+file_path <- "alexa_file.xlsx"
+
+alexa_data <- read_excel(file_path)
+
+head(alexa_data)
+
+```
+a. How many observations does alexa_file has? What about the number of columns? Show your solution
+and answer.
+```{r}
+num_observations <- nrow(alexa_data)
+
+num_columns <- ncol(alexa_data)
+
+cat("Number of Observations:", num_observations, "\n")
+cat("Number of Columns:", num_columns, "\n")
+
+```
+
+b. group the variations and get the total of each variations. Use dplyr package. Show solution and
+answer.
+```{r}
+library(dplyr)
+
+variation_totals <- alexa_data %>%
+  group_by(variation) %>%
+  summarise(total = n())
+
+variation_totals
+
+```
+
+c. Plot the variations using the ggplot() function. What did you observe? Complete the details of the
+graph. Show solution and answer.
+```{r}
+library(ggplot2)
+
+ggplot(alexa_data, aes(x = variation)) +
+  geom_bar() +
+  labs(title = "Distribution of Alexa Variations",
+       x = "Variation",
+       y = "Count") +
+  theme_minimal()
+
+```
