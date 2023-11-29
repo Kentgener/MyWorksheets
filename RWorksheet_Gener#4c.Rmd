@@ -116,14 +116,13 @@ its results.
 ```{r}
 library(ggplot2)
 
-top_20 <- head(mpg, 20)
-
-ggplot(top_20, aes(x = model, y = year)) +
+ggplot(mpg, aes(x = displ, y = hwy, color = cyl)) +
   geom_point() +
-  labs(title = "Relationship between Model and Year (Top 20 Observations)",
-       x = "Model", y = "Year") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  labs(title = "Relationship between Engine Displacement and Highway MPG",
+       x = "Engine Displacement", y = "Highway MPG",
+       color = "Number of Cylinders") +
+  scale_color_continuous(name = "Number of Cylinders") +
+  theme_minimal()
 
 ```
 
@@ -142,11 +141,12 @@ cars_per_model
 a. Plot using geom_bar() using the top 20 observations only. The graphs shoudl have a title, labels and
 colors. Show code and results.
 ```{r}
+library(dplyr)
 library(ggplot2)
 
-top_20 <- head(mpg, 20)
+all_models <- unique(mpg$model)
 
-ggplot(top_20, aes(x = model)) +
+ggplot(mpg %>% filter(model %in% all_models[1:20]), aes(x = model)) +
   geom_bar(fill = "skyblue", color = "black") +
   labs(title = "Number of Cars per Model (Top 20 Observations)",
        x = "Model", y = "Number of Cars") +
@@ -224,8 +224,7 @@ c. Plot each junction in a using geom_line(). Show your solution and output.
 ```{r}
 library(ggplot2)
 
-# Plot each junction using geom_line()
-ggplot(traffic, aes(x = 'timestamp', y = 'traffic_volume', color = 'junctions')) +
+ggplot(traffic, aes(x = DateTime, y = Vehicles, color = Junction)) +
   geom_line() +
   labs(title = "Traffic Volume Over Time for Each Junction",
        x = "Timestamp", y = "Traffic Volume",
