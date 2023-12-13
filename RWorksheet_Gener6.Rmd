@@ -1,0 +1,184 @@
+---
+title: "RWorksheet_6.Rmd"
+author: "Kent Hervey D. Gener BSIT2-B"
+date: "2023-12-13"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+Basic Statistics
+1. Create a data frame for the table below. Show your solution.
+```{r}
+df <- data.frame(
+  Student = c(1, 2, 2, 4, 5, 7, 8, 9, 10),
+  Pre_test = c(55, 54, 47, 57, 51, 61, 57, 54, 63),
+  Post_test = c(61, 60, 56, 63, 56, 63, 59, 56, 62)
+)
+print(df)
+
+```
+
+a. Compute the descriptive statistics using different packages (Hmisc and pastecs).
+Write the codes and its result.
+```{r}
+library(Hmisc)
+library(pastecs)
+desc_stats_hmisc <- Hmisc::describe(df)
+print(desc_stats_hmisc)
+
+desc_stats_pastecs <- pastecs::stat.desc(df)
+print(desc_stats_pastecs)
+```
+
+2. The Department of Agriculture was studying the effects of several levels of a fertilizer
+on the growth of a plant. For some analyses, it might be useful to convert the fertilizer
+levels to an ordered factor.
+```{r}
+fertilizer_levels <- c("Low", "Medium", "High", "Low", "Medium", "High")
+
+ordered_fertilizer <- factor(fertilizer_levels, ordered = TRUE, levels = c("Low", "Medium", "High"))
+
+print(ordered_fertilizer)
+
+```
+
+Figure 1: Student Score
+• The data were 10,10,10, 20,20,50,10,20,10,50,20,50,20,10.
+a. Write the codes and describe the result.
+```{r}
+exercise_levels <- c("l", "n", "n", "i", "l", "l", "n", "n", "i", "l")
+
+exercise_factor <- factor(exercise_levels, levels = c("n", "l", "i"), labels = c("none", "light", "intense"))
+
+print(exercise_factor)
+
+```
+
+3. Abdul Hassan, president of Floor Coverings Unlimited, has asked you to study the exercise levels undertaken by 10 subjects were “l”, “n”, “n”, “i”, “l” , “l”, “n”,
+“n”, “i”, “l” ; n=none, l=light, i=intense
+a. What is the best way to represent this in R?
+```{r}
+state <- c("tas", "sa", "qld", "nsw", "nsw", "nt", "wa", "wa", "qld",
+          "vic", "nsw", "vic", "qld", "qld", "sa", "tas", "sa", "nt",
+          "wa", "vic", "qld", "nsw", "nsw", "wa", "sa", "act", "nsw",
+          "vic", "vic", "act")
+
+state_factor <- factor(state)
+
+print(levels(state_factor))
+
+```
+
+4. Sample of 30 tax accountants from all the states and territories of Australia and their
+individual state of origin is specified by a character vector of state mnemonics as:
+state 
+<- c("tas", "sa", "qld", "nsw", "nsw", "nt", "wa", "wa", "qld",
+"vic", "nsw", "vic", "qld", "qld", "sa", "tas", "sa", "nt",
+"wa", "vic", "qld", "nsw", "nsw", "wa", "sa", "act", "nsw",
+"vic", "vic", "act")
+a. Apply the factor function and factor level. Describe the results.
+```{r}
+custom_levels <- c("act", "nsw", "nt", "qld", "sa", "tas", "vic", "wa")
+
+state_factor_custom <- factor(state, levels = custom_levels)
+
+print(levels(state_factor_custom))
+
+```
+
+5. From #4 - continuation:
+• Suppose we have the incomes of the same tax accountants in another vector (in suitably
+large units of money)
+```{r}
+incomes <- c(60, 49, 40, 61, 64, 60, 59, 54,
+62, 69, 70, 42, 56, 61, 61, 61, 58, 51, 48,
+65, 49, 49, 41, 48, 52, 46, 59, 46, 58, 43)
+
+print(incomes)
+```
+
+a. Calculate the sample mean income for each state we can now use the special function
+tapply():
+Example: giving a means vector with the components labelled by the levels
+incmeans <- tapply(incomes, statef, mean)
+
+Note: The function tapply() is used to apply a function, here mean(), to each group
+of components of the first argument, here incomes, defined by the levels of the second
+component, here state 2
+• 2
+that tapply() also works in this case when its second argument is not a factor,
+• e.g., ‘tapply(incomes, state)’, and this is true for quite a few other functions, since
+arguments are coerced to factors when necessary (using as.factor()).
+```{r}
+incmeans <- tapply(incomes, state_factor_custom, mean)
+
+print(incmeans)
+
+```
+
+b. Copy the results and interpret.
+
+Interpretation of the specific values in incmeans depends on the actual results, but in general, it represents the average income for tax accountants in each state based on the provided data.
+
+6. Calculate the standard errors of the state income means (refer again to number 3)
+stdError <- function(x) sqrt(var(x)/length(x))
+Note: After this assignment, the standard errors are calculated by:
+incster <- tapply(incomes, statef, stdError)
+a. What is the standard error? Write the codes.
+```{r}
+stdError <- function(x) sqrt(var(x) / length(x))
+
+incster <- tapply(incomes, state_factor_custom, stdError)
+
+print(incster)
+
+```
+b. Interpret the result.
+
+#A smaller standard error indicates greater precision. In the context of this analysis, a smaller standard error for a state's mean income suggests that the sample mean is likely  #more reliable estimate of the true mean income for tax accountants in that state.
+
+7. Use the titanic dataset.
+a. subset the titatic dataset of those who survived and not survived. Show the codes
+and its result.
+```{r}
+library(titanic)
+
+data("titanic_train")
+
+survived_data <- subset(titanic_train, Survived == 1)
+not_survived_data <- subset(titanic_train, Survived == 0)
+
+print("Subset for those who survived:")
+head(survived_data)
+
+print("Subset for those who did not survive:")
+head(not_survived_data)
+
+```
+
+
